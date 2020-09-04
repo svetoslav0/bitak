@@ -69,3 +69,11 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+# Migrations Configuration
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_version
+    name: Application Migrations
+    organize_migrations: false
