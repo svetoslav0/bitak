@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -42,6 +43,18 @@ class User implements UserInterface
      * @ORM\Column(name="fullName", type="string", length=255)
      */
     private $fullName;
+
+    /**
+     * @var ArrayCollection|Role[]
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Role", inversedBy="user")
+     */
+    private $roles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
 
     /**
@@ -126,9 +139,34 @@ class User implements UserInterface
         return $this->fullName;
     }
 
+    /**
+     * @return Role[]|ArrayCollection
+     */
     public function getRoles()
     {
-        return [];
+        $stringRoles = [];
+
+        /** @var Role $role */
+        foreach ($this->roles as $role) {
+            $stringRoles[] = $role->getName();
+        }
+        return $stringRoles;
+    }
+
+    /**
+     * @param Role[]|ArrayCollection $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function addRole($role)
+    {
+        $this->roles[] = $role;
     }
 
     public function getSalt()

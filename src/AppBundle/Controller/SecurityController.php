@@ -18,8 +18,6 @@ class SecurityController extends Controller
     {
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        var_dump($error);
-
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 

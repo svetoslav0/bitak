@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Role;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use AppBundle\Service\Encryption\EncryptionServiceInterface;
@@ -65,8 +66,6 @@ class UserController extends Controller
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        $passwordHash = $this->encryptionService->encrypt($user->getPassword());
-        $user->setPassword($passwordHash);
         $this->userService->save($user);
 
         return $this->redirectToRoute('security_login');
