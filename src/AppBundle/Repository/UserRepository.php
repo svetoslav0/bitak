@@ -1,5 +1,6 @@
 <?php
 
+
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\User;
@@ -21,7 +22,8 @@ class UserRepository extends EntityRepository
         parent::__construct($em, new ClassMetadata(User::class));
     }
 
-    public function insert(User $user) {
+    public function insert(User $user)
+    {
         try {
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();

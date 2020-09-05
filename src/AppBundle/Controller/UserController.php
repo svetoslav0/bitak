@@ -4,15 +4,14 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use AppBundle\Service\Encryption\EncryptionServiceInterface;
 use AppBundle\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
  *
  * Class UserController
  * @package AppBundle\Controller
@@ -24,9 +23,18 @@ class UserController extends Controller
      */
     private $userService;
 
-    public function __construct(UserServiceInterface $userService)
+    /**
+     * @var EncryptionServiceInterface
+     */
+    private $encryptionService;
+
+    public function __construct(
+        UserServiceInterface $userService,
+        EncryptionServiceInterface $encryptionService
+    )
     {
         $this->userService = $userService;
+        $this->encryptionService = $encryptionService;
     }
 
     /**
@@ -37,7 +45,11 @@ class UserController extends Controller
      * @return Response
      */
     public function register() {
-        return $this->render('user/register.html.twig');
+        $form = $this->createForm(UserType::class);
+
+        return $this->render('user/register.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -53,17 +65,26 @@ class UserController extends Controller
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        $passwordHash = $this->encryptionService->encrypt($user->getPassword());
+        $user->setPassword($passwordHash);
         $this->userService->save($user);
 
-        return $this->redirectToRoute('login_user');
+        return $this->redirectToRoute('security_login');
     }
 
     /**
-     * @Route("/login",
-     *     name="login_user",
-     *     methods={"GET"})
+     * @Route("/account", name="account")
      */
-    public function login() {
+    public function account() {
+        var_dump('login successful');
+        exit;
+    }
 
+    /**
+     * @Route("/fail", name="fail")
+     */
+    public function fail() {
+        var_dump('fail');
+        exit;
     }
 }

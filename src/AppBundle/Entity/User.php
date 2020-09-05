@@ -3,14 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -24,9 +25,9 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
-    private $username;
+    private $email;
 
     /**
      * @var string
@@ -38,23 +39,9 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=255)
+     * @ORM\Column(name="fullName", type="string", length=255)
      */
-    private $firstName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
-     */
-    private $lastName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
-     */
-    private $image;
+    private $fullName;
 
 
     /**
@@ -68,27 +55,27 @@ class User
     }
 
     /**
-     * Set username
+     * Set email
      *
-     * @param string $username
+     * @param string $email
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setEmail($email)
     {
-        $this->username = $username;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get email
      *
      * @return string
      */
-    public function getUsername()
+    public function getEmail()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**
@@ -116,75 +103,47 @@ class User
     }
 
     /**
-     * Set firstName
+     * Set fullName
      *
-     * @param string $firstName
+     * @param string $fullName
      *
      * @return User
      */
-    public function setFirstName($firstName)
+    public function setFullName($fullName)
     {
-        $this->firstName = $firstName;
+        $this->fullName = $fullName;
 
         return $this;
     }
 
     /**
-     * Get firstName
+     * Get fullName
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFullName()
     {
-        return $this->firstName;
+        return $this->fullName;
     }
 
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     *
-     * @return User
-     */
-    public function setLastName($lastName)
+    public function getRoles()
     {
-        $this->lastName = $lastName;
-
-        return $this;
+        return [];
     }
 
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
+    public function getSalt()
     {
-        return $this->lastName;
+        // TODO: Implement getSalt() method.
     }
 
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return User
-     */
-    public function setImage($image)
+    public function getUsername()
     {
-        $this->image = $image;
-
-        return $this;
+        // TODO: Implement getUsername() method.
     }
 
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
+    public function eraseCredentials()
     {
-        return $this->image;
+        // TODO: Implement eraseCredentials() method.
     }
 }
 

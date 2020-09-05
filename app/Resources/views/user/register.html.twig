@@ -4,15 +4,18 @@
 
     <h1>Register</h1>
     <form method="post">
-        Username:* <br />
-        <input type="text" name="user[username]" /><br />
+        Email:* <br />
+        <input type="text" name="user[email]" /><br />
         Password:* <br />
         <input type="password" name="user[password]" /><br />
-        First Name:* <br />
-        <input type="text" name="user[firstName]" /><br />
-        Last Name: <br />
-        <input type="text" name="user[lastName]" /><br />
+        Full Name:* <br />
+        <input type="text" name="user[fullName]" /><br />
+
         <input type="submit" value="Register!">
+
+        <h3>
+            <a href="{{ path('security_login') }}">Login</a>
+        </h3>
     </form>
 
 {% endblock %}
