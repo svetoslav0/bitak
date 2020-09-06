@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <form name="authenticate" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" />
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-
-
+    <form name="authenticate" id="login-form" class="form" method="post">
+        <h3>Login to your account</h3>
+        <label>
+            <p class="label-txt">ENTER YOUR EMAIL</p>
+            <input type="text" name="_username" id="username" class="form-control">
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+        </label>
+        <label>
+            <p class="label-txt">ENTER YOUR PASSWORD</p>
+            <input type="password" name="_password" id="password" class="form-control">
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+        </label>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        #}
-        <input type="hidden" name="_target_path" value="/account" />
-
-        <button type="submit">login</button>
+        <button type="submit">Login</button>
     </form>
 
 {% endblock %}

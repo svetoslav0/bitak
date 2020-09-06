@@ -16,6 +16,10 @@ class SecurityController extends Controller
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
@@ -26,4 +30,9 @@ class SecurityController extends Controller
             'error'         => $error,
         ]);
     }
+
+    /**
+     * @Route("/logout", name="security_logout")
+     */
+    public function logout() {}
 }

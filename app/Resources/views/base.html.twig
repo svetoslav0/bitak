@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
     </head>
     <body>
+        {% if is_granted('ROLE_ADMIN') %}
+            {% include 'common/adminHeader.html.twig' %}
+        {% elseif is_granted('ROLE_USER') %}
+            {% include 'common/userHeader.html.twig' %}
+        {% else %}
+            {% include 'common/notLoggedHeader.html.twig' %}
+        {% endif %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

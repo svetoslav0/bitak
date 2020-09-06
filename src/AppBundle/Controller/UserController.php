@@ -46,6 +46,10 @@ class UserController extends Controller
      * @return Response
      */
     public function register() {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         $form = $this->createForm(UserType::class);
 
         return $this->render('user/register.html.twig', [
@@ -72,18 +76,10 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/account", name="account")
+     * @Route("/home", name="home")
+     *
      */
-    public function account() {
-        var_dump('login successful');
-        exit;
-    }
-
-    /**
-     * @Route("/fail", name="fail")
-     */
-    public function fail() {
-        var_dump('fail');
-        exit;
+    public function home() {
+        return $this->render('home/home.html.twig');
     }
 }
